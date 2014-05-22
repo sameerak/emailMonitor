@@ -1,0 +1,37 @@
+<%
+var verb = request.getMethod();
+var email = request.getParameter('email');
+var password = request.getParameter('password');
+response.contentType = 'text/plain';
+
+
+if(verb == "DELETE" || verb == "PUT" || verb == "GET") {
+	response.status = 400;
+	print("Only method allowed on this resource is HTTP POST");
+} else if(verb == "POST" && (email == null || password == null)) {
+	response.status = 400;
+   	print("Please provide valid credentials of an email account");
+} else if(verb == "POST") {
+	try{
+		//get the class to log in to email account
+		//request the results of the analysis with given credentials
+		var test = Packages.org.wso2.sameera.test;
+		var myTest = new test();
+		var name = 'sameera';
+		print(myTest.myName(name));
+		print('<br/>');
+		print(myTest.myName());
+
+		//testing the handling of request parameters in the server side
+		print(email);
+		print('<br/>');
+		print(password);
+		print('<br/>');
+	}
+	catch(error){
+		//extend catch blocks as needed by the error case
+		response.status = 400;
+		print("Please provide valid credentials of an email account");
+	}
+}
+%>
